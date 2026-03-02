@@ -350,12 +350,10 @@ void UUEOCSceneAssetSubsystem::HandleGetAssetDetails(const FString& RequestId, T
 
 	// Metadata tags
 	TSharedPtr<FJsonObject> TagsObj = MakeShareable(new FJsonObject);
-	FAssetDataTagMap TagMap;
-	AssetData.GetTagsAndValues(TagMap);
-	for (const auto& Pair : TagMap)
+	AssetData.TagsAndValues.ForEach([&TagsObj](const TPair<FName, FAssetTagValueRef>& Pair)
 	{
-		TagsObj->SetStringField(Pair.Key.ToString(), Pair.Value.GetValue());
-	}
+		TagsObj->SetStringField(Pair.Key.ToString(), Pair.Value.AsString());
+	});
 	Data->SetObjectField(TEXT("tags"), TagsObj);
 
 	SendResponse(RequestId, TEXT("get_asset_details"), Data);

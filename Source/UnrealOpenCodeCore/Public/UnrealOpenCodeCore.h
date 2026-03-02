@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Modules/ModuleInterface.h"
 
-class UNREALOPENCODESCORE_API FUnrealOpenCodeCoreModule : public IModuleInterface
+class UNREALOPENCODECORE_API FUnrealOpenCodeCoreModule : public IModuleInterface
 {
 public:
 	virtual void StartupModule() override;

@@ -8,6 +8,7 @@
 #include "Sockets.h"
 #include "SocketSubsystem.h"
 #include "IPAddress.h"
+#include "Interfaces/IPv4/IPv4Address.h"
 #include "Containers/Queue.h"
 
 // Forward declarations for protocol types (defined in UnrealOpenCodeProtocol.h from Task 3)
@@ -42,7 +43,7 @@ DECLARE_DELEGATE_OneParam(FOnUEOCRawRequestReceived, const FString& /* JsonReque
  *   5. Call SendJsonResponse() from any thread to queue outgoing messages
  *   6. Call Stop() to shut down (blocks until thread exits)
  */
-class UNREALOPENCODESCORE_API FUEOCTCPServer : public FRunnable
+class UNREALOPENCODECORE_API FUEOCTCPServer : public FRunnable
 {
 public:
 	FUEOCTCPServer();
@@ -58,10 +59,10 @@ public:
 	void RequestStop();
 
 	/** Is the background thread running? */
-	bool IsRunning() const { return bIsRunning.IsSet(); }
+	bool IsRunning() const { return (bool)bIsRunning; }
 
 	/** Is a MCP client currently connected? */
-	bool IsClientConnected() const { return bClientConnected.IsSet(); }
+	bool IsClientConnected() const { return (bool)bClientConnected; }
 
 	/** Get the port the server is bound to (0 if not listening). */
 	int32 GetBoundPort() const { return BoundPort; }

@@ -35,6 +35,7 @@ class UNREALOPENCODEEDITOR_API UUEOCBuildLogSubsystem : public UEditorSubsystem
 	GENERATED_BODY()
 
 public:
+	virtual ~UUEOCBuildLogSubsystem();
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 	virtual void Deinitialize() override;
 
@@ -64,7 +65,7 @@ private:
 	FDelegateHandle RequestDelegateHandle;
 
 	/** Custom output device that captures log entries into a ring buffer. */
-	TUniquePtr<FUEOCOutputDeviceCapture> OutputCapture;
+	FUEOCOutputDeviceCapture* OutputCapture = nullptr;
 
 	/** Delegate handle for module change notifications (compilation tracking). */
 	FDelegateHandle ModulesChangedHandle;

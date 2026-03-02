@@ -10,7 +10,7 @@
  * Message framing: 4-byte big-endian uint32 length prefix + UTF-8 JSON body.
  */
 USTRUCT()
-struct UNREALOPENCODESCORE_API FUEOCRequest
+struct UNREALOPENCODECORE_API FUEOCRequest
 {
     GENERATED_BODY()
 
@@ -36,7 +36,7 @@ struct UNREALOPENCODESCORE_API FUEOCRequest
  * Matches TypeScript interface UEResponse in protocol.ts.
  */
 USTRUCT()
-struct UNREALOPENCODESCORE_API FUEOCResponse
+struct UNREALOPENCODECORE_API FUEOCResponse
 {
     GENERATED_BODY()
 

@@ -7,7 +7,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FTCPServerStartStopTest,
     "UnrealOpenCode.TCPServer.StartStop",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter
+    EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter
 )
 
 bool FTCPServerStartStopTest::RunTest(const FString& Parameters)

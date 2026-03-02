@@ -17,7 +17,7 @@ FUEOCTCPServer::~FUEOCTCPServer()
 
 bool FUEOCTCPServer::Start(int32 StartPort, int32 MaxPort)
 {
-	if (bIsRunning.IsSet())
+	if ((bool)bIsRunning)
 	{
 		UE_LOG(LogUEOCTCPServer, Warning, TEXT("TCP server already running on port %d"), BoundPort);
 		return true;
@@ -106,7 +106,7 @@ uint32 FUEOCTCPServer::Run()
 
 	UE_LOG(LogUEOCTCPServer, Log, TEXT("TCP server thread running, listening on port %d"), BoundPort);
 
-	while (!bStopRequested.IsSet())
+	while (!(bool)bStopRequested)
 	{
 		if (!ClientSocket)
 		{

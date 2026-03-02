@@ -64,11 +64,15 @@ void UUEOCBlueprintSubsystem::HandleRequest(const FString& JsonRequest)
 		return;
 	}
 
-	TSharedPtr<FJsonObject> Params;
-	if (!RequestJson->TryGetObjectField(TEXT("params"), Params) || !Params.IsValid())
-	{
-		Params = MakeShareable(new FJsonObject());
-	}
+    TSharedPtr<FJsonObject> Params;
+    if (RequestJson->HasTypedField<EJson::Object>(TEXT("params")))
+    {
+        Params = RequestJson->GetObjectField(TEXT("params"));
+    }
+    if (!Params.IsValid())
+    {
+        Params = MakeShareable(new FJsonObject());
+    }
 
 	if (Type == UEOCToolTypes::GetBlueprintList)
 	{
@@ -86,7 +90,7 @@ void UUEOCBlueprintSubsystem::HandleRequest(const FString& JsonRequest)
 
 void UUEOCBlueprintSubsystem::HandleGetBlueprintList(const FString& RequestId, TSharedPtr<FJsonObject> Params)
 {
-	UE_UNUSED(Params);
+    (void)Params;
 
 	IAssetRegistry& AssetRegistry = FModuleManager::LoadModuleChecked<FAssetRegistryModule>(TEXT("AssetRegistry")).Get();
 
@@ -155,7 +159,7 @@ void UUEOCBlueprintSubsystem::HandleGetBlueprintDetails(const FString& RequestId
 	{
 		if (UClass* GeneratedClass = Blueprint->GeneratedClass)
 		{
-			for (TFieldIterator<FProperty> It(GeneratedClass, EFieldIterationFlags::ExcludeSuper); It; ++It)
+			for (TFieldIterator<FProperty> It(GeneratedClass, EFieldIteratorFlags::ExcludeSuper); It; ++It)
 			{
 				const FProperty* Property = *It;
 
@@ -166,7 +170,7 @@ void UUEOCBlueprintSubsystem::HandleGetBlueprintDetails(const FString& RequestId
 				Variables.Add(MakeShareable(new FJsonValueObject(VarObj)));
 			}
 
-			for (TFieldIterator<UFunction> It(GeneratedClass, EFieldIterationFlags::ExcludeSuper); It; ++It)
+			for (TFieldIterator<UFunction> It(GeneratedClass, EFieldIteratorFlags::ExcludeSuper); It; ++It)
 			{
 				const UFunction* Function = *It;
 				const bool bIsCallable = Function->HasAnyFunctionFlags(FUNC_BlueprintCallable | FUNC_BlueprintPure | FUNC_BlueprintEvent);

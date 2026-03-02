@@ -102,15 +102,17 @@ static FString VerbosityToString(ELogVerbosity::Type Verbosity)
 // UUEOCBuildLogSubsystem
 // ---------------------------------------------------------------------------
 
+UUEOCBuildLogSubsystem::~UUEOCBuildLogSubsystem() = default;
+
 void UUEOCBuildLogSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 
 	// Create and register the output device capture
-	OutputCapture = MakeUnique<FUEOCOutputDeviceCapture>();
+	OutputCapture = new FUEOCOutputDeviceCapture();
 	if (GLog)
 	{
-		GLog->AddOutputDevice(OutputCapture.Get());
+		GLog->AddOutputDevice(OutputCapture);
 	}
 
 	// Subscribe to compilation/module change events
@@ -141,11 +143,12 @@ void UUEOCBuildLogSubsystem::Deinitialize()
 	FModuleManager::Get().OnModulesChanged().Remove(ModulesChangedHandle);
 
 	// Remove output device from GLog before destroying it
-	if (GLog && OutputCapture.IsValid())
+	if (GLog && OutputCapture)
 	{
-		GLog->RemoveOutputDevice(OutputCapture.Get());
+		GLog->RemoveOutputDevice(OutputCapture);
 	}
-	OutputCapture.Reset();
+	delete OutputCapture;
+	OutputCapture = nullptr;
 
 	UE_LOG(LogUEOCBuildLog, Log, TEXT("Build log subsystem deinitialized"));
 
