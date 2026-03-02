@@ -1,0 +1,10 @@
+[UnrealOpenCode] TCP error: 
+[UnrealOpenCode] Disconnected, reconnecting (1/3)...
+[UnrealOpenCode] TCP error: 
+[UnrealOpenCode] Disconnected, reconnecting (2/3)...
+[UnrealOpenCode] TCP error: 
+[UnrealOpenCode] Disconnected, reconnecting (3/3)...
+[UnrealOpenCode] UE plugin not connected: Error: Connection timeout after 5000ms
+[UnrealOpenCode] MCP Server started via stdio
+[UnrealOpenCode] TCP error: 
+[UnrealOpenCode] Max reconnection attempts reached. UE editor may not be running.

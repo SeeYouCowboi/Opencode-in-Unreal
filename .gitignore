@@ -1,0 +1,21 @@
+# UE Build Artifacts
+Binaries/
+Intermediate/
+DerivedDataCache/
+Saved/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+.vs/
+
+# Node.js / MCP Server
+Resources/MCPServer/node_modules/
+Resources/MCPServer/dist/
+Resources/MCPServer/coverage/
+
+# Windows reserved filename artifact
+Resources/MCPServer/nul
+
+# OS
+.DS_Store
+Thumbs.db
