@@ -66,7 +66,7 @@ export class UETCPClient {
     });
   }
 
-  async sendRequest(type: string, params: Record<string, unknown> = {}): Promise<UEResponse> {
+  async sendRequest(type: string, params: Record<string, unknown> = {}, timeoutMs?: number): Promise<UEResponse> {
     if (!this.connected || !this.socket) {
       throw new Error('Not connected to Unreal Engine editor');
     }
@@ -78,11 +78,13 @@ export class UETCPClient {
       timestamp: Date.now(),
     };
 
+    const effectiveTimeout = timeoutMs ?? this.requestTimeout;
+
     return new Promise<UEResponse>((resolve, reject) => {
       const timeout = setTimeout(() => {
         this.pendingRequests.delete(request.id);
-        reject(new Error(`Request timeout: ${type} (${this.requestTimeout}ms)`));
-      }, this.requestTimeout);
+        reject(new Error(`Request timeout: ${type} (${effectiveTimeout}ms)`));
+      }, effectiveTimeout);
 
       this.pendingRequests.set(request.id, { resolve, reject, timeout });
 

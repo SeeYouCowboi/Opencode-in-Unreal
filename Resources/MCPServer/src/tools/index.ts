@@ -8,13 +8,14 @@ import { TOOL_DEFINITIONS as sceneDefs, handleToolCall as sceneHandler } from '.
 import { TOOL_DEFINITIONS as assetDefs, handleToolCall as assetHandler } from './asset-management.js';
 import { TOOL_DEFINITIONS as buildDefs, handleToolCall as buildHandler } from './build-logs.js';
 import { TOOL_DEFINITIONS as codeDefs, handleToolCall as codeHandler } from './code-generation.js';
+import { TOOL_DEFINITIONS as editorOpsDefs, handleToolCall as editorOpsHandler } from './editor-operations.js';
 
 const ALL_TOOL_DEFINITIONS = [
-  ...projectDefs, ...cppDefs, ...bpDefs, ...sceneDefs, ...assetDefs, ...buildDefs, ...codeDefs,
+  ...projectDefs, ...cppDefs, ...bpDefs, ...sceneDefs, ...assetDefs, ...buildDefs, ...codeDefs, ...editorOpsDefs,
   { name: 'ping', description: 'Ping the UE plugin to check connectivity', inputSchema: { type: 'object' as const, properties: {}, required: [] } },
 ];
 
-const HANDLERS = [projectHandler, cppHandler, bpHandler, sceneHandler, assetHandler, buildHandler, codeHandler];
+const HANDLERS = [projectHandler, cppHandler, bpHandler, sceneHandler, assetHandler, buildHandler, codeHandler, editorOpsHandler];
 
 export function registerTools(server: Server, tcpClient: UETCPClient): void {
   server.setRequestHandler(ListToolsRequestSchema, async () => ({ tools: ALL_TOOL_DEFINITIONS }));

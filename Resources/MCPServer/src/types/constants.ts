@@ -21,6 +21,12 @@ export const UE_TOOL_TYPES = {
   GET_OUTPUT_LOG: 'get_output_log',
   GET_COMPILATION_STATUS: 'get_compilation_status',
   GENERATE_CODE: 'generate_code',
+  SET_ACTOR_PROPERTY: 'set_actor_property',
+  SPAWN_ACTOR: 'spawn_actor',
+  DELETE_ACTOR: 'delete_actor',
+  TRANSFORM_ACTOR: 'transform_actor',
+  EXECUTE_CONSOLE_COMMAND: 'execute_console_command',
+  SET_PROJECT_SETTING: 'set_project_setting',
   PING: 'ping',
 } as const;
 

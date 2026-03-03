@@ -107,6 +107,14 @@ namespace UEOCToolTypes
     // Code generation
     static const FString GenerateCode            = TEXT("generate_code");
 
+    // Editor operations (write tools)
+    static const FString SetActorProperty        = TEXT("set_actor_property");
+    static const FString SpawnActor              = TEXT("spawn_actor");
+    static const FString DeleteActor             = TEXT("delete_actor");
+    static const FString TransformActor          = TEXT("transform_actor");
+    static const FString ExecuteConsoleCommand   = TEXT("execute_console_command");
+    static const FString SetProjectSetting       = TEXT("set_project_setting");
+
     // Utility
     static const FString Ping                    = TEXT("ping");
 }
