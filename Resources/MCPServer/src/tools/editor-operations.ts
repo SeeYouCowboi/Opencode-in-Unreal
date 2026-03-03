@@ -39,101 +39,6 @@ export const TOOL_DEFINITIONS: Tool[] = [
     },
   },
   {
-    name: UE_TOOL_TYPES.SPAWN_ACTOR,
-    description:
-      'Spawn a new actor in the current editor level. Supports C++ class names (e.g., "StaticMeshActor", "PointLight") and Blueprint class paths.',
-    inputSchema: {
-      type: 'object' as const,
-      properties: {
-        className: {
-          type: 'string',
-          description:
-            'Actor class name (e.g., "StaticMeshActor", "PointLight", "CameraActor") or full Blueprint class path',
-        },
-        location: {
-          type: 'object',
-          description: 'Spawn location',
-          properties: {
-            x: { type: 'number', description: 'X coordinate' },
-            y: { type: 'number', description: 'Y coordinate' },
-            z: { type: 'number', description: 'Z coordinate' },
-          },
-        },
-        rotation: {
-          type: 'object',
-          description: 'Spawn rotation',
-          properties: {
-            pitch: { type: 'number', description: 'Pitch in degrees' },
-            yaw: { type: 'number', description: 'Yaw in degrees' },
-            roll: { type: 'number', description: 'Roll in degrees' },
-          },
-        },
-        label: {
-          type: 'string',
-          description: 'Optional display label for the actor in the editor',
-        },
-      },
-      required: ['className'],
-    },
-  },
-  {
-    name: UE_TOOL_TYPES.DELETE_ACTOR,
-    description:
-      'Delete an actor from the current editor level. Supports undo.',
-    inputSchema: {
-      type: 'object' as const,
-      properties: {
-        actorName: {
-          type: 'string',
-          description: 'Name or label of the actor to delete',
-        },
-      },
-      required: ['actorName'],
-    },
-  },
-  {
-    name: UE_TOOL_TYPES.TRANSFORM_ACTOR,
-    description:
-      'Set the location, rotation, and/or scale of an actor. Only specified components are changed; others remain unchanged.',
-    inputSchema: {
-      type: 'object' as const,
-      properties: {
-        actorName: {
-          type: 'string',
-          description: 'Name or label of the actor to transform',
-        },
-        location: {
-          type: 'object',
-          description: 'New world location (omit to keep current)',
-          properties: {
-            x: { type: 'number' },
-            y: { type: 'number' },
-            z: { type: 'number' },
-          },
-        },
-        rotation: {
-          type: 'object',
-          description: 'New world rotation in degrees (omit to keep current)',
-          properties: {
-            pitch: { type: 'number' },
-            yaw: { type: 'number' },
-            roll: { type: 'number' },
-          },
-        },
-        scale: {
-          type: 'object',
-          description: 'New 3D scale (omit to keep current)',
-          properties: {
-            x: { type: 'number' },
-            y: { type: 'number' },
-            z: { type: 'number' },
-          },
-        },
-      },
-      required: ['actorName'],
-    },
-  },
-  {
     name: UE_TOOL_TYPES.EXECUTE_CONSOLE_COMMAND,
     description:
       'Execute an Unreal Engine console command in the editor. Use with caution — commands can have significant effects. Output is captured and returned.',
@@ -185,9 +90,6 @@ type ToolResult = { content: Array<{ type: 'text'; text: string }> };
 
 const EDITOR_OP_TOOLS = new Set<string>([
   UE_TOOL_TYPES.SET_ACTOR_PROPERTY,
-  UE_TOOL_TYPES.SPAWN_ACTOR,
-  UE_TOOL_TYPES.DELETE_ACTOR,
-  UE_TOOL_TYPES.TRANSFORM_ACTOR,
   UE_TOOL_TYPES.EXECUTE_CONSOLE_COMMAND,
   UE_TOOL_TYPES.SET_PROJECT_SETTING,
 ]);

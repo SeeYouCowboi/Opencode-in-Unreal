@@ -22,15 +22,11 @@ private:
 
 	// Operation handlers
 	void HandleSetActorProperty(const FString& RequestId, TSharedPtr<FJsonObject> Params);
-	void HandleSpawnActor(const FString& RequestId, TSharedPtr<FJsonObject> Params);
-	void HandleDeleteActor(const FString& RequestId, TSharedPtr<FJsonObject> Params);
-	void HandleTransformActor(const FString& RequestId, TSharedPtr<FJsonObject> Params);
 	void HandleExecuteConsoleCommand(const FString& RequestId, TSharedPtr<FJsonObject> Params);
 	void HandleSetProjectSetting(const FString& RequestId, TSharedPtr<FJsonObject> Params);
 
 	// Helpers
 	AActor* FindActorByName(UWorld* World, const FString& ActorName) const;
-	UClass* FindActorClass(const FString& ClassName) const;
 	bool ShowConfirmationDialog(const FString& Title, const FString& Description,
 		const TArray<TPair<FString, FString>>& Details);
 	void SendResponse(const FString& RequestId, const FString& Type, TSharedPtr<FJsonObject> DataJson);
