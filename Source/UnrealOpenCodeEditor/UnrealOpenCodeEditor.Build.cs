@@ -33,6 +33,7 @@ public class UnrealOpenCodeEditor : ModuleRules
 				"ToolMenus",
 				"ApplicationCore",
 				"DesktopPlatform",
+				"HTTP",
 			}
 		);
 	}

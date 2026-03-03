@@ -89,30 +89,23 @@ TSharedRef<SDockTab> FUnrealOpenCodeEditorModule::OnSpawnTab(const FSpawnTabArgs
 			SNew(SUnrealOpenCodePanel)
 		];
 }
-{
-	return SNew(SDockTab)
-		.TabRole(ETabRole::NomadTab)
-		[
-			SNew(STextBlock)
-			.Text(LOCTEXT("PlaceholderText", "UnrealOpenCode AI Panel — Loading..."))
-		];
-}
 
 void FUnrealOpenCodeEditorModule::RegisterMenus()
 {
 	FToolMenuOwnerScoped OwnerScoped(this);
 	
-	UToolMenu* ToolbarMenu = UToolMenus::Get()->ExtendMenu("LevelEditor.LevelEditorToolBar");
-	FToolMenuSection& Section = ToolbarMenu->FindOrAddSection("Window");
-	
-	FToolMenuEntry Entry = FToolMenuEntry::InitToolBarButton(
-		FUnrealOpenCodeCommands::Get().OpenChatPanel,
-		LOCTEXT("OpenChatButton", "AI"),
-		LOCTEXT("OpenChatTooltip", "Open UnrealOpenCode AI Chat Panel"),
-		FSlateIcon(FAppStyle::GetAppStyleSetName(), "Icons.Plus")
-	);
-	Entry.StyleNameOverride = "CalloutToolbar";
-	Section.AddEntry(Entry);
+	// Add entry to Window → Auxiliary (辅助) section — same category as AI助手
+	UToolMenu* WindowMenu = UToolMenus::Get()->ExtendMenu("LevelEditor.MainMenu.Window");
+	{
+		FToolMenuSection& AuxSection = WindowMenu->FindOrAddSection("Auxiliary");
+		AuxSection.AddMenuEntryWithCommandList(
+			FUnrealOpenCodeCommands::Get().OpenChatPanel,
+			PluginCommands,
+			LOCTEXT("OpenChatMenuItem", "UnrealOpenCode"),
+			LOCTEXT("OpenChatMenuItemTooltip", "Open UnrealOpenCode AI Chat Panel"),
+			FSlateIcon(FAppStyle::GetAppStyleSetName(), "Icons.Plus")
+		);
+	}
 }
 
 void FUnrealOpenCodeEditorModule::OpenChatPanel()

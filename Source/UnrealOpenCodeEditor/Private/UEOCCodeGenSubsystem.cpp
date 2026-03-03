@@ -9,7 +9,7 @@
 #include "Serialization/JsonSerializer.h"
 #include "Styling/AppStyle.h"
 #include "Widgets/Input/SButton.h"
-#include "Widgets/Input/SMultiLineEditableText.h"
+#include "Widgets/Input/SMultiLineEditableTextBox.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
 #include "Widgets/Layout/SScrollBox.h"
@@ -20,7 +20,7 @@
 
 namespace
 {
-	FString EscapeJsonString(const FString& InValue)
+	FString UEOCEscapeJson(const FString& InValue)
 	{
 		FString Escaped = InValue;
 		Escaped.ReplaceInline(TEXT("\\"), TEXT("\\\\"));
@@ -222,7 +222,7 @@ void UUEOCCodeGenSubsystem::HandleGenerateCode(const FString& RequestId, const F
 	const FString Action = bFileExists ? TEXT("overwrite") : TEXT("create");
 	const FString DataJson = FString::Printf(
 		TEXT("{\"filePath\":\"%s\",\"action\":\"%s\"}"),
-		*EscapeJsonString(AbsolutePath),
+		*UEOCEscapeJson(AbsolutePath),
 		*Action);
 
 	SendResponse(RequestId, true, DataJson);
@@ -362,7 +362,7 @@ void UUEOCCodeGenSubsystem::SendResponse(const FString& RequestId, bool bSuccess
 	{
 		Json = FString::Printf(
 			TEXT("{\"id\":\"%s\",\"type\":\"generate_code\",\"success\":true,\"data\":%s,\"timestamp\":%lld}"),
-			*EscapeJsonString(RequestId),
+			*UEOCEscapeJson(RequestId),
 			*DataJson,
 			Timestamp);
 	}
@@ -370,8 +370,8 @@ void UUEOCCodeGenSubsystem::SendResponse(const FString& RequestId, bool bSuccess
 	{
 		Json = FString::Printf(
 			TEXT("{\"id\":\"%s\",\"type\":\"generate_code\",\"success\":false,\"error\":{\"message\":\"%s\"},\"timestamp\":%lld}"),
-			*EscapeJsonString(RequestId),
-			*EscapeJsonString(ErrorMessage),
+			*UEOCEscapeJson(RequestId),
+			*UEOCEscapeJson(ErrorMessage),
 			Timestamp);
 	}
 

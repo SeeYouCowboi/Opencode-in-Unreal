@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Modules/ModuleInterface.h"
+#include "Framework/Docking/TabManager.h"
 
 class UNREALOPENCODEEDITOR_API FUnrealOpenCodeEditorModule : public IModuleInterface
 {
@@ -16,5 +17,5 @@ private:
 
 	void RegisterMenus();
 	void OpenChatPanel();
-	TSharedRef<class SDockTab> OnSpawnTab(const struct FSpawnTabArgs& SpawnTabArgs);
+	TSharedRef<class SDockTab> OnSpawnTab(const FSpawnTabArgs& SpawnTabArgs);
 };
